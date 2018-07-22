@@ -33,7 +33,6 @@ namespace WPFMenusAndToolBar
             SetupWatcher();
             dbase = new SQ();
             tmpdb = new SQ("filewatcher.tmpdb");
-            //this.lvEvents.Items.Add(new { Datetime = "col1", EvType = "col2", Location = "col3" });
         }
 
         private void SetupWatcher()
@@ -42,7 +41,6 @@ namespace WPFMenusAndToolBar
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
            | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
-            //watcher.Filter = "*.*";
             watcher.IncludeSubdirectories = true;
 
             watcher.Changed += Watcher_Created;
@@ -51,8 +49,6 @@ namespace WPFMenusAndToolBar
             watcher.Renamed += Watcher_Created;
 
             path = new DirectoryInfo("C:\\");
-
-            //throw new NotImplementedException();
         }
         private static bool IsBadDir(string path)
         {
@@ -83,22 +79,16 @@ namespace WPFMenusAndToolBar
                 Dispatcher.BeginInvoke(
                    (Action)(() =>
                    {
-                   //this.lvEvents.Items.Add(new { Datetime = System.DateTime.Now.ToString(), EvType = e.ChangeType, Location = e.FullPath });
                    this.lvEvents.Items.Insert(0, new { Datetime = System.DateTime.Now.ToString(), EvType = e.ChangeType, Location = e.FullPath });
-                       this.lvEvents.Items.MoveCurrentToPosition(lvEvents.Items.Count - 1);
+                   this.lvEvents.Items.MoveCurrentToPosition(lvEvents.Items.Count - 1);
                }));
             }
-                
-           
-            //throw new NotImplementedException();
         }
 
         private void mnuFileExit_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("about to close app");
             this.tmpdb.clearDB();
-            //this.curFi = new FileInfo(Directory.GetCurrentDirectory().ToLower() +"\\filewatcher.tmpdb");
-            //curFi.Delete();
             Environment.Exit(0);
         }
 
