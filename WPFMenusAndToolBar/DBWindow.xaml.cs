@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.SQLite;
+using System.Data;
 
 namespace WPFMenusAndToolBar
 {
@@ -20,15 +23,37 @@ namespace WPFMenusAndToolBar
     public partial class DBWindow : Window
     {
         private int counter;
+        private SQ dbase;
         public DBWindow()
         {
             InitializeComponent();
+            dbase = new SQ();
+            FillDataGrid();
         }
 
-        private void btnAddToListBox_Click(object sender, RoutedEventArgs e)
+        private void FillDataGrid()
         {
-            this.lstDBInfo.Items.Add("List Box entry number " + ++counter);
-            this.lvDBInfo.Items.Add(new { First = "col1", Second = "col2", Third = "col3" });
+            this.FillDataGrid("");
+        }
+
+        private void FillDataGrid(string search)
+        {
+        string CmdString = string.Empty;
+
+            using (SQLiteConnection con = dbase.getConn())
+            {
+                CmdString = "SELECT * FROM FileInfo '" + search + "'";
+                SQLiteCommand cmd = new SQLiteCommand(CmdString, con);
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                DataTable dt = new DataTable("FileInfo");
+                sda.Fill(dt);
+                grdDatabase.ItemsSource = dt.DefaultView;
+            }
+        }
+
+        private void SearchExt(string ext)
+        {
+            FillDataGrid("WHERE ext LIKE '%'" + ext + "'%'");
         }
     }
 }

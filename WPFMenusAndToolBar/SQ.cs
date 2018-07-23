@@ -45,5 +45,10 @@ namespace Database
             this.sqlite_cmd.ExecuteNonQuery();
         }
 
+        public SQLiteConnection getConn()
+        {
+            return sqlite_conn;
+        }
+
     }
 }

@@ -16,16 +16,24 @@
         </Grid.ColumnDefinitions>
         <Menu x:Name="mainMenu" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="White" Height="21" Margin="0,0,-0.333,0">
             <MenuItem x:Name="mnuFile"  Header="_File" FontSize="14" Click="mnuFile_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" UseLayoutRounding="False" Margin="1,0,2,0">
-                <MenuItem x:Name="mnuFileExit" Header="E_xit" Click="mnuFileExit_Click" Margin="0,0,0.333,0"/>
-                <MenuItem x:Name="mnuFileDBWindow" Header="_Open DB Window" Click="mnuFileDBWindow_Click"/>
+                <MenuItem x:Name="mnuFileExit" Header="E_xit" Click="mnuFileExit_Click" Margin="0,0,0.333,0">
+                    <MenuItem.Icon>
+                    <Image Source="img/exit2.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="mnuFileDBWindow" Header="_Open DB Window" Click="mnuFileDBWindow_Click">
+                    <MenuItem.Icon>
+                        <Image Source="img/hosting.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem x:Name="mnuStartWatcher" Header="_Start Watcher" Click="btnStartWatcher_Click">
                     <MenuItem.Icon>
-                        <Image Source="img/start-icon.png"/>
+                        <Image Source="img/start2.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="mnuStopWatcher" Header="_Stop Watcher" Margin="0,0,0.333,0" Click="btnStopWatcher_Click">
                     <MenuItem.Icon>
-                        <Image Source="img/redX.jpg"/>
+                        <Image Source="img/stop.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

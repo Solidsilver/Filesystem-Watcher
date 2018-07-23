@@ -31,7 +31,7 @@ namespace WPFMenusAndToolBar
         {
             InitializeComponent();
             SetupWatcher();
-            dbase = new SQ();
+            //dbase = new SQ();
             tmpdb = new SQ("filewatcher.tmpdb");
         }
 
@@ -87,9 +87,22 @@ namespace WPFMenusAndToolBar
 
         private void mnuFileExit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("about to close app");
-            this.tmpdb.clearDB();
-            Environment.Exit(0);
+            MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Cancel)
+            {
+                if (result == MessageBoxResult.Yes)
+                {
+
+                }
+                if (result == MessageBoxResult.No)
+                {
+
+                }
+                this.tmpdb.clearDB();
+                Environment.Exit(0);
+            }
+            
+            
         }
 
         private void mnuHelpAbout_Click(object sender, RoutedEventArgs e)
@@ -153,8 +166,19 @@ namespace WPFMenusAndToolBar
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBox.Show("about to close app");
-            this.tmpdb.clearDB();
+            MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Cancel)
+            {
+                e.Cancel = true;
+            } else
+            {
+                if (result == MessageBoxResult.Yes)
+                {
+
+                }
+                this.tmpdb.clearDB();
+            }
+            
         }
 
         private void btnClearLog_Click(object sender, RoutedEventArgs e)
