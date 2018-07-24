@@ -47,7 +47,7 @@ namespace Database
 
         public SQLiteConnection getConn()
         {
-            return sqlite_conn;
+            return this.sqlite_conn;
         }
 
     }
