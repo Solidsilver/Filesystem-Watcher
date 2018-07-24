@@ -118,7 +118,6 @@ namespace WPFMenusAndToolBar
 
         private void mnuFile_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnStartWatcher_Click(object sender, RoutedEventArgs e)
@@ -127,7 +126,9 @@ namespace WPFMenusAndToolBar
             {
                 watcher.EnableRaisingEvents = true;
                 this.btnStartWatcher.IsEnabled = false;
+                this.btnStart.IsEnabled = false;
                 this.btnStopWatcher.IsEnabled = true;
+                this.btnStop.IsEnabled = true;
             } else
             {
                 MessageBox.Show("Invalid PATH: " + path.ToString() + "\nPlease specify a valid path");
@@ -139,7 +140,9 @@ namespace WPFMenusAndToolBar
         {
             watcher.EnableRaisingEvents = false;
             btnStartWatcher.IsEnabled = true;
+            this.btnStart.IsEnabled = true;
             btnStopWatcher.IsEnabled = false;
+            this.btnStop.IsEnabled = false;
         }
 
         private void btnSetPath_Click(object sender, RoutedEventArgs e)

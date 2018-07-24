@@ -1,17 +1,6 @@
-﻿using Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Data.SQLite;
 using System.Data;
 
@@ -44,8 +33,6 @@ namespace WPFMenusAndToolBar
             using (SQLiteConnection con = new SQLiteConnection("Data Source=filewatcher.tmpdb;Version=3;New=True;Compress=True;"))
             {
                 CmdString = "SELECT * from FileInfo " + search + "";
-                //string cmpCmdString = "SELECT * from FileInfo WHERE instr(Extension, 'pf') > 0";
-                //int diff = string.Compare(CmdString, cmpCmdString);
                 SQLiteCommand cmd = new SQLiteCommand(CmdString, con);
                 SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
                 DataTable dt = new DataTable("FileInfo");
@@ -77,8 +64,6 @@ namespace WPFMenusAndToolBar
                     break;
 
             }
-            if (cbxSort.SelectedIndex == 0)
-            this.sAttrib = cbxSort.SelectedItem.ToString();
         }
 
         private void btnDbSearch_Click(object sender, RoutedEventArgs e)
