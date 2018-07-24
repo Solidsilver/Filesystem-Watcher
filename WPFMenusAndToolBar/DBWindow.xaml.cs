@@ -44,8 +44,8 @@ namespace WPFMenusAndToolBar
             using (SQLiteConnection con = new SQLiteConnection("Data Source=filewatcher.tmpdb;Version=3;New=True;Compress=True;"))
             {
                 CmdString = "SELECT * from FileInfo " + search + "";
-                string cmpCmdString = "SELECT * from FileInfo WHERE instr(ext, 'pf') > 0";
-                int diff = string.Compare(CmdString, cmpCmdString);
+                //string cmpCmdString = "SELECT * from FileInfo WHERE instr(Extension, 'pf') > 0";
+                //int diff = string.Compare(CmdString, cmpCmdString);
                 SQLiteCommand cmd = new SQLiteCommand(CmdString, con);
                 SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
                 DataTable dt = new DataTable("FileInfo");
@@ -61,19 +61,19 @@ namespace WPFMenusAndToolBar
                 case -1:
                     break;
                 case 0:
-                    this.sAttrib = "fname";
+                    this.sAttrib = "Filename";
                     break;
                 case 1:
-                    this.sAttrib = "apath";
+                    this.sAttrib = "Path";
                     break;
                 case 2:
-                    this.sAttrib = "action";
+                    this.sAttrib = "Action";
                     break;
                 case 3:
-                    this.sAttrib = "ext";
+                    this.sAttrib = "Extension";
                     break;
                 case 4:
-                    this.sAttrib = "datetime";
+                    this.sAttrib = "DateTime";
                     break;
 
             }

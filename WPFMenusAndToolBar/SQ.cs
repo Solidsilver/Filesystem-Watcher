@@ -14,7 +14,7 @@ namespace Database
             //filewatacher.db is stored in the /bin/Debug folder of this project.
             this.sqlite_conn.Open();
             this.sqlite_cmd = sqlite_conn.CreateCommand();
-            this.sqlite_cmd.CommandText = "CREATE TABLE if not exists FileInfo (fname varchar(100), apath varchar(100), action varchar(10), ext varchar(10), datetime varchar(25));";
+            this.sqlite_cmd.CommandText = "CREATE TABLE if not exists FileInfo (Filename varchar(100), Action varchar(10), Extension varchar(10), DateTime varchar(25), Path varchar(100));";
             this.sqlite_cmd.ExecuteNonQuery();
         }
 
@@ -24,13 +24,13 @@ namespace Database
             //.db file is stored in the /bin/Debug folder of this project.
             this.sqlite_conn.Open();
             this.sqlite_cmd = sqlite_conn.CreateCommand();
-            this.sqlite_cmd.CommandText = "CREATE TABLE if not exists FileInfo (fname varchar(100), apath varchar(100), action varchar(10), ext varchar(10), datetime varchar(25));";
+            this.sqlite_cmd.CommandText = "CREATE TABLE if not exists FileInfo (Filename varchar(100), Action varchar(10), Extension varchar(10), DateTime varchar(25), Path varchar(100));";
             this.sqlite_cmd.ExecuteNonQuery();
         }
 
         public void writeDB(string fname, string apath, string action, string ext, string datetime)
         {
-            this.sqlite_cmd.CommandText = "INSERT INTO FileInfo (fname, apath, action, ext, datetime) VALUES ('" + fname + "', '" + apath + "', '" + action + "', '" + ext + "', '" + datetime + "');";
+            this.sqlite_cmd.CommandText = "INSERT INTO FileInfo (Filename, Action, Extension, DateTime, Path) VALUES ('" + fname + "', '" + action + "', '" + ext + "', '" + datetime + "', '" + apath + "');";
             this.sqlite_cmd.ExecuteNonQuery();
         }
 
