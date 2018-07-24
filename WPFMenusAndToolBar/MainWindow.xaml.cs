@@ -31,7 +31,7 @@ namespace WPFMenusAndToolBar
         {
             InitializeComponent();
             SetupWatcher();
-            //dbase = new SQ();
+            dbase = new SQ();
             tmpdb = new SQ("filewatcher.tmpdb");
         }
 
@@ -87,12 +87,16 @@ namespace WPFMenusAndToolBar
 
         private void mnuFileExit_Click(object sender, RoutedEventArgs e)
         {
+            if (this.tmpdb.isEmpty)
+            {
+                return;
+            }
             MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
             if (result != MessageBoxResult.Cancel)
             {
                 if (result == MessageBoxResult.Yes)
                 {
-
+                    saveTmpDb();
                 }
                 if (result == MessageBoxResult.No)
                 {
@@ -169,6 +173,10 @@ namespace WPFMenusAndToolBar
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (this.tmpdb.isEmpty)
+            {
+                return;
+            }
             MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
             if (result == MessageBoxResult.Cancel)
             {
@@ -177,11 +185,25 @@ namespace WPFMenusAndToolBar
             {
                 if (result == MessageBoxResult.Yes)
                 {
-
+                    saveTmpDb();
                 }
                 this.tmpdb.clearDB();
             }
             
+        }
+
+        private void saveTmpDb()
+        {
+            SQ dbase = new SQ();
+            string tmpDB = Directory.GetCurrentDirectory() + "\\filewatcher.tmpdb";
+            dbase.executeCommand("attach '"+tmpDB+"' as source");
+            dbase.executeCommand("insert into main.FileInfo select * from source.FileInfo");
+            this.tmpdb.clearDB();
+        }
+
+        private void mnuSave_Click(object sender, RoutedEventArgs e)
+        {
+            this.saveTmpDb();
         }
 
         private void btnClearLog_Click(object sender, RoutedEventArgs e)

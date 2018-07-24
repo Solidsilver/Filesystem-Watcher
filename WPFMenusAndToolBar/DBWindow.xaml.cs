@@ -30,7 +30,7 @@ namespace WPFMenusAndToolBar
         {
         string CmdString = string.Empty;
 
-            using (SQLiteConnection con = new SQLiteConnection("Data Source=filewatcher.tmpdb;Version=3;New=True;Compress=True;"))
+            using (SQLiteConnection con = new SQLiteConnection("Data Source=filewatcher.db;Version=3;New=True;Compress=True;"))
             {
                 CmdString = "SELECT * from FileInfo " + search + "";
                 SQLiteCommand cmd = new SQLiteCommand(CmdString, con);
