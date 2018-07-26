@@ -27,6 +27,7 @@ namespace WPFMenusAndToolBar
         private FileInfo curFi;
         private DirectoryInfo path;
         private SQ dbase, tmpdb;
+        private string watcherFilter;
         public MainWindow()
         {
             InitializeComponent();
@@ -87,25 +88,32 @@ namespace WPFMenusAndToolBar
 
         private void mnuFileExit_Click(object sender, RoutedEventArgs e)
         {
-            if (this.tmpdb.isEmpty)
+            if (this.exiting())
             {
-                return;
-            }
-            MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Cancel)
-            {
-                if (result == MessageBoxResult.Yes)
-                {
-                    saveTmpDb();
-                }
-                if (result == MessageBoxResult.No)
-                {
-
-                }
-                this.tmpdb.clearDB();
                 Environment.Exit(0);
             }
-            
+        }
+
+        private bool exiting()
+        {
+            if (!this.tmpdb.isEmpty)
+            {
+                MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (result != MessageBoxResult.Cancel)
+                {
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        saveTmpDb();
+                    }
+                    if (result == MessageBoxResult.No)
+                    {
+                        this.tmpdb.clearDB();
+                    }
+                    return true;
+                }
+                return false;
+            }
+            return true;
             
         }
 
@@ -173,42 +181,117 @@ namespace WPFMenusAndToolBar
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (this.tmpdb.isEmpty)
-            {
-                return;
-            }
-            MessageBoxResult result = MessageBox.Show("The program will now exit. The current log is not saved.\nWould you like to save it?", "Warning", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Cancel)
+            if (!this.exiting())
             {
                 e.Cancel = true;
-            } else
-            {
-                if (result == MessageBoxResult.Yes)
-                {
-                    saveTmpDb();
-                }
-                this.tmpdb.clearDB();
-            }
-            
+            }            
         }
 
         private void saveTmpDb()
         {
+            watcher.EnableRaisingEvents = false;
             SQ dbase = new SQ();
             string tmpDB = Directory.GetCurrentDirectory() + "\\filewatcher.tmpdb";
             dbase.executeCommand("attach '"+tmpDB+"' as source");
             dbase.executeCommand("insert into main.FileInfo select * from source.FileInfo");
             this.tmpdb.clearDB();
+            watcher.EnableRaisingEvents = true;
         }
 
         private void mnuSave_Click(object sender, RoutedEventArgs e)
         {
-            this.saveTmpDb();
+            if (this.tmpdb.isEmpty)
+            {
+                MessageBox.Show("Nothing to save.\nPlease run the watcher to log new data");
+            } else
+            {
+                this.saveTmpDb();
+            }
+    
+        }
+
+        private void ckbSpecifyExt_Checked(object sender, RoutedEventArgs e)
+        {
+            this.cbxSetExt.IsEnabled = true;
+            this.lblOrExt.IsEnabled = true;
+            this.txtEnterExt.IsEnabled = true;
+            this.btnSetExt.IsEnabled = true;
+        }
+
+        private void ckbSpecifyExt_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.cbxSetExt.IsEnabled = false;
+            this.lblOrExt.IsEnabled = false;
+            this.txtEnterExt.IsEnabled = false;
+            this.btnSetExt.IsEnabled = false;
+            this.watcher.Filter = "*";
+        }
+
+        private void cbxSetExt_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.cbxSetExt.SelectedIndex != -1)
+            {
+                this.txtEnterExt.Text = "Enter Ext.";
+            }
+            switch (cbxSetExt.SelectedIndex)
+            {
+                case -1:
+                    break;
+                case 0:
+                    this.watcher.Filter = "*.dat";
+                    break;
+                case 1:
+                    this.watcher.Filter = "*.dll";
+                    break;
+                case 2:
+                    this.watcher.Filter = "*.gif";
+                    break;
+                case 3:
+                    this.watcher.Filter = "*.jpg";
+                    break;
+                case 4:
+                    this.watcher.Filter = "*.pf";
+                    break;
+                case 5:
+                    this.watcher.Filter = "*.png";
+                    break;
+                case 6:
+                    this.watcher.Filter = "*.tmp";
+                    break;
+                case 7:
+                    this.watcher.Filter = "*.txt";
+                    break;
+            }
+        }
+
+        private void txtEnterExt_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            this.cbxSetExt.SelectedIndex = -1;
+            this.watcherFilter = "*";
+            (sender as TextBox).SelectAll();
+        }
+
+        private void btnSetExt_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (this.cbxSetExt.SelectedIndex != -1)
+            {
+                MessageBox.Show("Please enter custom extenstion in box");
+            } else
+            {
+                this.watcher.Filter = txtEnterExt.Text;
+            }
+        }
+
+        private void clearLog()
+        {
+            this.lvEvents.DataContext = null;
+
         }
 
         private void btnClearLog_Click(object sender, RoutedEventArgs e)
         {
-            //txtWatcherEvents.Clear();
+            clearLog();
         }
     }
 }

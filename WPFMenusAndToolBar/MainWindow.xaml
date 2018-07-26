@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFMenusAndToolBar"
         mc:Ignorable="d"
-        Title="MainWindow" Width="750" ResizeMode="CanResizeWithGrip" Height="460" MinWidth="449" MinHeight="300" Closing="window_Closing">
+        Title="MainWindow" Width="1024" ResizeMode="CanResizeWithGrip" Height="670" MinWidth="449" MinHeight="300" Closing="window_Closing">
     <Window.Resources>
         <ZoomPercentageConverter x:Key="ZoomPercentageConverter"/>
     </Window.Resources>
     <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="317*"/>
+            <ColumnDefinition Width="55*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Menu x:Name="mainMenu" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="White" Height="21" Margin="0,0,-0.333,0">
+        <Menu x:Name="mainMenu" VerticalAlignment="Top" Grid.ColumnSpan="3" Background="White" Height="21" Margin="0,0,-0.666,0">
             <MenuItem x:Name="mnuFile"  Header="_File" FontSize="14" Click="mnuFile_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" UseLayoutRounding="False" Margin="1,0,2,0" Background="White" BorderBrush="White">
                 <MenuItem x:Name="mnuFileExit" Header="E_xit" Click="mnuFileExit_Click" Margin="0,0,0.333,0" Background="White" BorderBrush="White">
                     <MenuItem.Icon>
@@ -36,7 +37,7 @@
                         <Image Source="img/stop.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="mnuSave" Header="Save Log" HorizontalAlignment="Left" Width="195" Background="White" BorderBrush="White" Click="mnuSave_Click">
+                <MenuItem x:Name="mnuSave" Header="S_ave" HorizontalAlignment="Left" Width="195" Background="White" BorderBrush="White" Click="mnuSave_Click">
                     <MenuItem.Icon>
                         <Image Source="img/save.png"/>
                     </MenuItem.Icon>
@@ -46,28 +47,28 @@
                 <MenuItem x:Name="mnuHelpAbout" Header="_About" HorizontalAlignment="Left" Click="mnuHelpAbout_Click" Background="White" BorderBrush="White"/>
             </MenuItem>
         </Menu>
-        <ToolBar x:Name="toolBar" VerticalAlignment="Top" Margin="0,22,0.333,0" Height="22" Background="White">
-            <Button x:Name="btnExit" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="21" RenderTransformOrigin="0.204,0.126" Height="19" Click="mnuFileExit_Click" Margin="0,-1,0,-0.667">
+        <ToolBar x:Name="toolBar" VerticalAlignment="Top" Margin="0,22,0,0" Height="23" Background="White" HorizontalAlignment="Left" Width="148">
+            <Button x:Name="btnExit" Content="" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="{Binding ActualHeight, ElementName=btnExit, Mode=OneWay}" RenderTransformOrigin="0.204,0.126" Click="mnuFileExit_Click" Margin="1,-1,1,-0.667">
                 <Button.Background>
                     <ImageBrush ImageSource="img/exit2.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnStart" Content="" Height="19" VerticalAlignment="Top" Width="20" Margin="2,-1,2,-0.667" Click="btnStartWatcher_Click">
+            <Button x:Name="btnStart" Content="" VerticalAlignment="Stretch" Width="{Binding ActualHeight, ElementName=btnStart, Mode=OneWay}" Margin="1,-1,1,-0.667" Click="btnStartWatcher_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="img/start2.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnStop" Content="" Height="21" VerticalAlignment="Top" Width="21" Margin="2,-2,2,-1.667" Click="btnStopWatcher_Click" RenderTransformOrigin="0.5,0.5" IsEnabled="False">
+            <Button x:Name="btnStop" Content="" VerticalAlignment="Stretch" Margin="1,-2,1,-1.667" Click="btnStopWatcher_Click" RenderTransformOrigin="0.5,0.5" IsEnabled="False" Width="{Binding ActualHeight, ElementName=btnStop, Mode=OneWay}">
                 <Button.Background>
                     <ImageBrush ImageSource="img/stop.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnDBView" Content="" Height="19" VerticalAlignment="Top" Width="19" Margin="2,-1,2,-0.667" Click="mnuFileDBWindow_Click">
+            <Button x:Name="btnDBView" Content="" VerticalAlignment="Stretch" Width="{Binding ActualHeight, ElementName=btnDBView, Mode=OneWay}" Margin="2,-1,2,-0.667" Click="mnuFileDBWindow_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="img/hosting.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnSave" Content="" Height="19" VerticalAlignment="Top" Width="20" Margin="2,-1,2,-0.667" Click="mnuSave_Click">
+            <Button x:Name="btnSave" Content="" VerticalAlignment="Stretch" Width="{Binding ActualHeight, ElementName=btnSave, Mode=OneWay}" Margin="3,-1,3,-0.667" Click="mnuSave_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="img/save.png"/>
                 </Button.Background>
@@ -77,10 +78,10 @@
         <TextBox x:Name="txtEnterPath" Height="20" Margin="10,76,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" GotMouseCapture="txtEnterPath_GotMouseCapture" HorizontalAlignment="Left" Width="334"/>
         <Label x:Name="lblValidPath" Content="PATH set: C:\" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="334" Opacity="0.5" Padding="0,5,5,5" Height="29"/>
         <Button x:Name="btnSetPath" Content="Set" Margin="349,76,0,0" VerticalAlignment="Top" Click="btnSetPath_Click" Height="20" HorizontalAlignment="Left" Width="75"/>
-        <Button x:Name="btnStartWatcher" Content="Start" Margin="0,110,9.667,0" VerticalAlignment="Top" Click="btnStartWatcher_Click" Height="20" HorizontalAlignment="Right" Width="75"/>
-        <Button x:Name="btnStopWatcher" Content="Stop" Margin="0,110,89.667,0" VerticalAlignment="Top" IsEnabled="False" Click="btnStopWatcher_Click" Height="20" HorizontalAlignment="Right" Width="74"/>
-        <Button x:Name="btnClearLog" Content="Clear" Margin="14.333,405,-14.333,0" VerticalAlignment="Top" Click="btnClearLog_Click" Grid.Column="1" Height="20"/>
-        <ListView x:Name="lvEvents" Margin="10,135,10.333,9.667">
+        <Button x:Name="btnStartWatcher" Content="Start" Margin="0,165,10.333,0" VerticalAlignment="Top" Click="btnStartWatcher_Click" Height="20" HorizontalAlignment="Right" Width="75" Grid.Column="1"/>
+        <Button x:Name="btnStopWatcher" Content="Stop" Margin="0,165,90.333,0" VerticalAlignment="Top" IsEnabled="False" Click="btnStopWatcher_Click" Height="20" HorizontalAlignment="Right" Width="74" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnClearLog" Content="Clear" Margin="14.666,405,-14.666,0" VerticalAlignment="Top" Click="btnClearLog_Click" Grid.Column="2" Height="20"/>
+        <ListView x:Name="lvEvents" Margin="10,190,10.333,9.667" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Width="130" DisplayMemberBinding="{Binding Datetime}">
@@ -95,6 +96,20 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Rectangle x:Name="LastWidth" Fill="#FFF4F4F5" Height="25" Stroke="Black" VerticalAlignment="Top" Margin="223,35,37.333,0" Visibility="Hidden"/>
+        <Rectangle x:Name="LastWidth" Fill="#FFF4F4F5" Height="25" Stroke="Black" VerticalAlignment="Top" Margin="223,35,37.334,0" Visibility="Hidden" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="ckbSpecifyExt" Content="Specify Extension" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Checked="ckbSpecifyExt_Checked" Unchecked="ckbSpecifyExt_Unchecked"/>
+        <ComboBox x:Name="cbxSetExt" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="72" IsEnabled="False" SelectionChanged="cbxSetExt_SelectionChanged">
+            <ComboBoxItem x:Name="cbiDat" Content=".dat" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiDll" Content=".dll" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiGif" Content=".gif" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiJpg" Content=".jpg" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiPf" Content=".pf" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiPng" Content=".png" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiTmp" Content=".tmp" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="cbiTxt" Content=".txt" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
+        <Label x:Name="lblOrExt" Content="Or" HorizontalAlignment="Left" Margin="87,147,0,0" VerticalAlignment="Top" Height="28" IsEnabled="False"/>
+        <TextBox x:Name="txtEnterExt" HorizontalAlignment="Left" Height="23" Margin="116,151,0,0" TextWrapping="Wrap" Text="Enter Ext." VerticalAlignment="Top" Width="55" IsEnabled="False" GotMouseCapture="txtEnterExt_GotMouseCapture"/>
+        <Button x:Name="btnSetExt" Content="Set" HorizontalAlignment="Left" Margin="176,151,0,0" VerticalAlignment="Top" Height="23" IsEnabled="False" Click="btnSetExt_Click"/>
     </Grid>
 </Window>

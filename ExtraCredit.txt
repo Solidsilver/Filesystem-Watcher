@@ -1,0 +1,5 @@
+Things for your consideration:
+ - Database searchable for any column.
+ - Icons in menu items (trivial, but nice-looking).
+ - App has an icon (.ico). (again, trivial but nice).
+ - Windows are resizeable and UI adapts as resized

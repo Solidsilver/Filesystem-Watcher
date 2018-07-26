@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Data.SQLite;
 using System.Data;
+using Database;
 
 namespace WPFMenusAndToolBar
 {
@@ -12,12 +13,12 @@ namespace WPFMenusAndToolBar
     public partial class DBWindow : Window
     {
         private int counter;
-        //private SQ dbase;
+        private SQ dbase;
         private string sAttrib, sVal;
         public DBWindow()
         {
             InitializeComponent();
-            //dbase = new SQ("filewatcher.tmpdb");
+            dbase = new SQ();
             FillDataGrid();
         }
 
@@ -87,6 +88,12 @@ namespace WPFMenusAndToolBar
         {
             this.cbxSort.SelectedIndex = -1;
             this.tbxSearch.Text = "";
+            FillDataGrid();
+        }
+
+        private void muiClearDB_Click(object sender, RoutedEventArgs e)
+        {
+            this.dbase.clearDB();
             FillDataGrid();
         }
 

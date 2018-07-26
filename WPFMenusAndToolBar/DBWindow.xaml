@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFMenusAndToolBar"
         mc:Ignorable="d"
-        Title="Database Window Stuff" Height="411.948" Width="689.879">
+        Title="Database Window Stuff" Height="450" Width="700" MinWidth="400" MinHeight="300">
     <Grid>
         <DataGrid x:Name="grdDatabase" Margin="10,69,10.333,9.667"/>
         <ComboBox x:Name="cbxSort" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="120" Height="23" SelectionChanged="cbxSort_SelectionChanged">
@@ -15,10 +15,15 @@
             <ComboBoxItem x:Name="cbiExt" Content="Extension" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="cbiDateTime" Content="Date/Time" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
-        <Label x:Name="lblSelectSort" Content="Search Type:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5,5,5"/>
+        <Label x:Name="lblSelectSort" Content="Search Type:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Padding="0,5,5,5"/>
         <TextBox x:Name="tbxSearch" HorizontalAlignment="Left" Height="23" Margin="135,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" GotMouseCapture="tbxSearch_GotMouseCapture"/>
         <Button x:Name="btnDbSearch" Content="Search" HorizontalAlignment="Left" Margin="260,41,0,0" VerticalAlignment="Top" Height="23" Click="btnDbSearch_Click"/>
-        <Button x:Name="btnClearSearch" Content="Clear" Margin="0,41,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Click="btnClearSearch_Click" Height="23"/>
-        <Label x:Name="lblSearchBox" Content="Search String:" HorizontalAlignment="Left" Margin="135,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnClearSearch" Content="Clear Search" Margin="0,41,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74" Click="btnClearSearch_Click" Height="23"/>
+        <Label x:Name="lblSearchBox" Content="Search String:" HorizontalAlignment="Left" Margin="135,15,0,0" VerticalAlignment="Top" Width="120"/>
+        <Menu Height="20" VerticalAlignment="Top" Margin="0,0,0.333,0">
+            <MenuItem x:Name="muiFile" Header="_File" Height="20" Width="33">
+                <MenuItem x:Name="muiClearDB" Header="_Clear DB" HorizontalAlignment="Left" Height="20" Width="139" Click="muiClearDB_Click"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>
